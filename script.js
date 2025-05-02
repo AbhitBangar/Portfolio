@@ -188,23 +188,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Random rotation for cards
     const cards = document.querySelectorAll('.project-card, .achievement-card');
     
-    cards.forEach(card => {
-        const randomRotation = (Math.random() * 2 - 1) * 1.5; // Random value between -1.5 and 1.5 degrees
-        card.style.transform = `rotate(${randomRotation}deg)`;
+    // cards.forEach(card => {
+    //     const randomRotation = (Math.random() * 2 - 1) * 1.5; // Random value between -1.5 and 1.5 degrees
+    //     card.style.transform = `rotate(${randomRotation}deg)`;
         
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'rotate(0deg) translateY(-5px)';
+    //     card.addEventListener('mouseenter', () => {
+    //         card.style.transform = 'rotate(0deg) translateY(-5px)';
             
-            // Add comic sound effect
-            const effects = ['POW', 'BANG', 'BOOM', 'ZAP', 'WOW'];
-            const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-            createComicEffect(card, randomEffect);
-        });
+    //         // Add comic sound effect
+    //         const effects = ['POW', 'BANG', 'BOOM', 'ZAP', 'WOW'];
+    //         const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+    //         createComicEffect(card, randomEffect);
+    //     });
         
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `rotate(${randomRotation}deg)`;
-        });
-    });
+    //     card.addEventListener('mouseleave', () => {
+    //         card.style.transform = `rotate(${randomRotation}deg)`;
+    //     });
+    // });
     
     // Add motion lines to comic panels
     const panels = document.querySelectorAll('.comic-panel');
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!hero) return;
     
-    const particles = 20;
+    const particles = 50;
     
     for (let i = 0; i < particles; i++) {
         const particle = document.createElement('div');
@@ -279,17 +279,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Interactive Social Links
-document.addEventListener('DOMContentLoaded', () => {
-    const socialLinks = document.querySelectorAll('.social-links a');
+// document.addEventListener('DOMContentLoaded', () => {
+//     const socialLinks = document.querySelectorAll('.social-links a');
     
-    socialLinks.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            const effects = ['CLICK', 'HI', 'HEY', 'HELLO'];
-            const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-            createComicEffect(link, randomEffect);
-        });
-    });
-});
+//     socialLinks.forEach(link => {
+//         link.addEventListener('mouseenter', () => {
+//             const effects = ['CLICK', 'HI', 'HEY', 'HELLO'];
+//             const randomEffect = effects[Math.floor(Math.random() * effects.length)];
+//             createComicEffect(link, randomEffect);
+//         });
+//     });
+// });
 
 // Interactive Profile Photo
 document.addEventListener('DOMContentLoaded', () => {
@@ -379,4 +379,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-}); 
+});
