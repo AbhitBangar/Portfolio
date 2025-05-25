@@ -34,24 +34,42 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
         
-        // Show a comic exclamation
-        const exclamation = document.createElement('div');
-        const phrases = ['BOOM!', 'POW!', 'ZAP!', 'CLICK!', 'WOOSH!'];
-        exclamation.textContent = phrases[Math.floor(Math.random() * phrases.length)];
-        exclamation.classList.add('nav-exclamation');
-        document.body.appendChild(exclamation);
-        
-        exclamation.style.top = `${e.clientY - 30}px`;
-        exclamation.style.left = `${e.clientX + 20}px`;
-        
-        // Remove after animation completes
-        setTimeout(() => {
-            exclamation.remove();
-        }, 1000);
-        
-        setTimeout(() => {
-            effect.remove();
-        }, 600);
+        // Smooth scroll for internal section links (not for external or buttons)
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#') && !link.classList.contains('btn-primary')) {
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                // Custom bounce scroll effect
+                const startY = window.scrollY;
+                const endY = target.getBoundingClientRect().top + window.scrollY;
+                const duration = 900;
+                let startTime = null;
+                function easeOutBounce(t) {
+                    const n1 = 7.5625, d1 = 2.75;
+                    if (t < 1 / d1) {
+                        return n1 * t * t;
+                    } else if (t < 2 / d1) {
+                        return n1 * (t -= 1.5 / d1) * t + 0.75;
+                    } else if (t < 2.5 / d1) {
+                        return n1 * (t -= 2.25 / d1) * t + 0.9375;
+                    } else {
+                        return n1 * (t -= 2.625 / d1) * t + 0.984375;
+                    }
+                }
+                function animateScroll(currentTime) {
+                    if (!startTime) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    let t = Math.min(timeElapsed / duration, 1);
+                    t = easeOutBounce(t);
+                    window.scrollTo(0, startY + (endY - startY) * t);
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animateScroll);
+                    }
+                }
+                requestAnimationFrame(animateScroll);
+            }
+        }
     });
 });
 
@@ -348,30 +366,58 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (contactBtn) {
         contactBtn.addEventListener('click', (e) => {
+            // Comic-style bounce scroll to contact section
+            const href = contactBtn.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    const startY = window.scrollY;
+                    const endY = target.getBoundingClientRect().top + window.scrollY;
+                    const duration = 900;
+                    let startTime = null;
+                    function easeOutBounce(t) {
+                        const n1 = 7.5625, d1 = 2.75;
+                        if (t < 1 / d1) {
+                            return n1 * t * t;
+                        } else if (t < 2 / d1) {
+                            return n1 * (t -= 1.5 / d1) * t + 0.75;
+                        } else if (t < 2.5 / d1) {
+                            return n1 * (t -= 2.25 / d1) * t + 0.9375;
+                        } else {
+                            return n1 * (t -= 2.625 / d1) * t + 0.984375;
+                        }
+                    }
+                    function animateScroll(currentTime) {
+                        if (!startTime) startTime = currentTime;
+                        const timeElapsed = currentTime - startTime;
+                        let t = Math.min(timeElapsed / duration, 1);
+                        t = easeOutBounce(t);
+                        window.scrollTo(0, startY + (endY - startY) * t);
+                        if (timeElapsed < duration) {
+                            requestAnimationFrame(animateScroll);
+                        }
+                    }
+                    requestAnimationFrame(animateScroll);
+                }
+            }
             // Create multiple stars/sparkles around the button
             for (let i = 0; i < 10; i++) {
                 const star = document.createElement('div');
                 star.classList.add('btn-star');
-                
                 // Random position around the button
                 const angle = Math.random() * Math.PI * 2; // Random angle
                 const distance = 40 + Math.random() * 30; // Random distance (40-70px)
-                
                 const rect = contactBtn.getBoundingClientRect();
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
-                
                 const x = centerX + Math.cos(angle) * distance;
                 const y = centerY + Math.sin(angle) * distance;
-                
                 star.style.left = `${x}px`;
                 star.style.top = `${y}px`;
-                
                 // Random delay for staggered animation
                 star.style.animationDelay = `${Math.random() * 0.2}s`;
-                
                 document.body.appendChild(star);
-                
                 // Remove after animation completes
                 setTimeout(() => {
                     star.remove();

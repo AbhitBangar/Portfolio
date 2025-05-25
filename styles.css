@@ -287,9 +287,9 @@ nav a:hover:after {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: radial-gradient(circle at 30% 30%, var(--accent-color) 0%, transparent 20%), 
-                      radial-gradient(circle at 70% 60%, var(--secondary-color) 0%, transparent 20%),
-                      radial-gradient(circle at 40% 80%, var(--primary-color) 0%, transparent 20%);
+    background-image: radial-gradient(circle at 30% 30%, var(--accent-color) 0%, transparent 20%),
+                        radial-gradient(circle at 70% 60%, var(--secondary-color) 0%, transparent 20%),
+                        radial-gradient(circle at 40% 80%, var(--primary-color) 0%, transparent 20%);
     opacity: 0.4;
     z-index: 0;
 }
@@ -625,7 +625,7 @@ nav a:hover:after {
     color: var(--primary-color);
 }
 
-/* Achievements Section */
+/* Research Work */
 .achievements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -664,18 +664,54 @@ nav a:hover:after {
     font-size: 0.95rem;
 }
 
-.responsibilities, .certificates {
+.achievement-card ul, .achievement-card ol {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 10px 0;
+}
+.achievement-card ul li, .achievement-card ol li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 12px;
+    font-size: 1.05em;
+    line-height: 1.6;
+}
+.achievement-card ul li:before {
+    content: '⚡';
+    position: absolute;
+    left: 0;
+}
+.achievement-card ol {
+    counter-reset: custom-counter;
+}
+.achievement-card ol li {
+    counter-increment: custom-counter;
+}
+.achievement-card ol li:before {
+    content: counter(custom-counter) ". ";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1em;
+    text-shadow: 1px 1px 0 #000, 2px 2px 0 var(--accent-color);
+}
+
+/* Achievements Section */
+.responsibilities, .certificates, .achievements {
     margin-top: 30px;
 }
 
-.responsibilities h3, .certificates h3 {
+.responsibilities h3, .certificates h3, .achievements h3 {
     font-size: 1.5rem;
     margin-bottom: 15px;
     position: relative;
     display: inline-block;
 }
 
-.responsibilities h3:after, .certificates h3:after {
+.responsibilities h3:after, .certificates h3:after, .achievements h3:after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -686,17 +722,17 @@ nav a:hover:after {
     border-radius: 3px;
 }
 
-.responsibilities ul, .certificates ul {
+.responsibilities ul, .certificates ul, .achievements ul {
     list-style: none;
 }
 
-.responsibilities li, .certificates li {
+.responsibilities li, .certificates li, .achievements ul {
     margin-bottom: 10px;
     position: relative;
     padding-left: 20px;
 }
 
-.responsibilities li:before, .certificates li:before {
+.responsibilities li:before, .certificates li:before, .achievements li:before {
     content: '⚡';
     position: absolute;
     left: 0;
