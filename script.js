@@ -431,11 +431,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const icon = themeToggle ? themeToggle.querySelector('i') : null;
     const darkModeClass = 'dark-mode';
-    // Load preference
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add(darkModeClass);
-        if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
+    
+    // Set dark mode as default
+    document.body.classList.add(darkModeClass);
+    if (icon) { 
+        icon.classList.remove('fa-moon'); 
+        icon.classList.add('fa-sun'); 
     }
+    localStorage.setItem('theme', 'dark');
+    
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle(darkModeClass);
