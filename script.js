@@ -1,10 +1,16 @@
 // Mobile Menu Toggle
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
+const navClose = document.querySelector('.nav-close');
 
 navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
+});
+
+navClose.addEventListener('click', () => {
+    navToggle.classList.remove('active');
+    navMenu.classList.remove('active');
 });
 
 // Add click animation to nav links

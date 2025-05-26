@@ -129,10 +129,40 @@ body.dark-mode .social-links a:hover {
     color: var(--dark-bg) !important;
 }
 
-/* body.dark-mode .nav-menu {
-    background-color: var(--dark-surface) !important;
-    border-left: 4px solid var(--dark-border) !important;
-} */
+body.dark-mode .nav-menu {
+    background-color: var(--dark-bg) !important;
+    /* border-left: 4px solid var(--dark-border) !important; */
+}
+
+body.dark-mode .nav-menu a {
+    color: var(--dark-text) !important;
+}
+
+body.dark-mode .nav-menu a[href="#contact"] {
+    color: var(--dark-bg) !important;
+    background-color: var(--dark-accent);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .nav-menu a[href="#contact"]:hover {
+    color: var(--dark-text) !important;
+    background-color: var(--dark-surface);
+}
+
+body.dark-mode .nav-menu a:hover {
+    color: var(--dark-accent) !important;
+}
+
+body.dark-mode .btn-primary a:hover {
+    background-color: var(--dark-bg);
+    color: white !important;
+}
+
+body.dark-mode .nav-menu a:after {
+    background-color: var(--dark-accent) !important;
+}
 
 body.dark-mode .nav-toggle span {
     background-color: var(--dark-text) !important;
@@ -199,6 +229,19 @@ body.dark-mode .section-title:after {
 body.dark-mode .btn-primary:before,
 body.dark-mode .btn-secondary:before {
     background-color: rgba(187, 134, 252, 0.3) !important;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: var(--dark-surface);
+    color: var(--dark-text) !important;
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .btn-secondary:hover {
+    color: var(--light-color);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
 }
 
 body.dark-mode .comic-bubble:after {
@@ -583,6 +626,7 @@ nav a:hover:after {
 .btn-primary {
     background-color: var(--primary-color);
     color: white;
+    transition: all 0.3s ease, transform 0.1s ease;
 }
 
 .btn-secondary {
@@ -591,10 +635,9 @@ nav a:hover:after {
 }
 
 .btn-primary:hover, .btn-secondary:hover {
+    background-color: white;
+    color: var(--dark-color);
     transform: translateY(-3px);
-    color: black;
-    /* color: white; */
-    /* background-color: white; */
     box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
 }
 
@@ -1392,6 +1435,8 @@ footer {
 
 /* Make Button Primary more interactive */
 .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
     transition: all 0.3s ease, transform 0.1s ease;
 }
 
@@ -1423,4 +1468,86 @@ body.dark-mode .hero h1 {
 body.dark-mode .hero p {
     color: var(--dark-text) !important;
     text-shadow: 1px 1px 0 var(--dark-surface) !important;
+}
+
+.nav-close {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    cursor: pointer;
+    z-index: 1000;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.nav-close:hover {
+    transform: rotate(90deg);
+}
+
+body.dark-mode .nav-close {
+    color: var(--dark-text);
+}
+
+@media (max-width: 768px) {
+    .nav-menu.active .nav-close {
+        display: block;
+    }
+    
+    .nav-close {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+}
+
+nav a[href="#contact"],
+nav a[href="index.html#contact"],
+nav a[href="projects.html#contact"],
+nav a[href="research.html#contact"],
+nav a[href="achievements.html#contact"] {
+    color: var(--light-color) !important;
+    background-color: var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+nav a[href="#contact"]:hover,
+nav a[href="index.html#contact"]:hover,
+nav a[href="projects.html#contact"]:hover,
+nav a[href="research.html#contact"]:hover,
+nav a[href="achievements.html#contact"]:hover {
+    color: var(--dark-color) !important;
+    background-color: var(--light-color);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode nav a[href="#contact"],
+body.dark-mode nav a[href="index.html#contact"],
+body.dark-mode nav a[href="projects.html#contact"],
+body.dark-mode nav a[href="research.html#contact"],
+body.dark-mode nav a[href="achievements.html#contact"] {
+    color: var(--dark-bg) !important;
+    background-color: var(--dark-accent);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode nav a[href="#contact"]:hover,
+body.dark-mode nav a[href="index.html#contact"]:hover,
+body.dark-mode nav a[href="projects.html#contact"]:hover,
+body.dark-mode nav a[href="research.html#contact"]:hover,
+body.dark-mode nav a[href="achievements.html#contact"]:hover {
+    color: var(--dark-text) !important;
+    background-color: var(--dark-surface);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
 }
