@@ -11,6 +11,14 @@
     --comic-border: 4px solid #000;
     --comic-shadow: 8px 8px 0 rgba(0, 0, 0, 0.9);
     --comic-background: linear-gradient(135deg, #74EBD5 0%, #9FACE6 100%);
+    /* Dark mode colors */
+    --dark-bg: #121212;
+    --dark-surface: #1E1E1E;
+    --dark-card: #2D2D2D;
+    --dark-text: #E0E0E0;
+    --dark-text-secondary: #B0B0B0;
+    --dark-border: #404040;
+    --dark-accent: #BB86FC;
 }
 
 * {
@@ -26,6 +34,218 @@ body {
     background-size: 20px;
     color: var(--dark-color);
     line-height: 1.6;
+}
+
+body.dark-mode {
+    background-color: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+    background-image: none !important;
+}
+
+body.dark-mode .comic-panel,
+body.dark-mode .comic-bubble,
+body.dark-mode .project-card,
+body.dark-mode .achievement-card,
+body.dark-mode .contact-form,
+body.dark-mode footer {
+    background-color: var(--dark-surface);
+    color: var(--dark-text);
+    border-color: var(--dark-border);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .logo {
+    background-color: var(--dark-surface);
+    color: var(--dark-accent);
+    border-color: var(--dark-border);
+}
+
+body.dark-mode nav a,
+body.dark-mode .section-title,
+body.dark-mode .project-content h3,
+body.dark-mode .achievement-card h3,
+body.dark-mode .hero h1,
+body.dark-mode .hero p,
+body.dark-mode .about-text p,
+body.dark-mode .education-card .year,
+body.dark-mode .education-card .degree,
+body.dark-mode .education-card .detail,
+body.dark-mode .skill-category h3,
+body.dark-mode .tech-stack,
+body.dark-mode .project-details li,
+body.dark-mode .contact-item p,
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group input::placeholder,
+body.dark-mode .form-group textarea::placeholder {
+    color: var(--dark-text);
+}
+
+body.dark-mode .btn-primary {
+    background-color: var(--dark-accent);
+    color: var(--dark-bg);
+    border-color: var(--dark-border);
+}
+
+body.dark-mode .btn-secondary {
+    background-color: var(--dark-surface);
+    color: var(--dark-accent);
+    border-color: var(--dark-border);
+}
+
+body.dark-mode .hero {
+    background-color: var(--dark-bg) !important;
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="%23121212"/><path d="M0 0L100 100M100 0L0 100" stroke="%23BB86FC" stroke-width="1" opacity="0.2"/></svg>') !important;
+    background-size: 20px !important;
+    overflow: hidden;
+}
+
+body.dark-mode .hero:before {
+    background-image: radial-gradient(circle at 30% 30%, var(--dark-accent) 0%, transparent 20%),
+                        radial-gradient(circle at 70% 60%, var(--dark-surface) 0%, transparent 20%),
+                        radial-gradient(circle at 40% 80%, var(--dark-accent) 0%, transparent 20%) !important;
+    opacity: 0.2 !important;
+    z-index: 0;
+}
+
+body.dark-mode .profile-photo img {
+    background-color: var(--dark-surface) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .profile-photo::before {
+    background: linear-gradient(45deg, var(--dark-surface), var(--dark-bg), var(--dark-accent)) !important;
+    opacity: 0.5;
+}
+
+body.dark-mode .social-links a {
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-accent) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .social-links a:hover {
+    background-color: var(--dark-accent) !important;
+    color: var(--dark-bg) !important;
+}
+
+/* body.dark-mode .nav-menu {
+    background-color: var(--dark-surface) !important;
+    border-left: 4px solid var(--dark-border) !important;
+} */
+
+body.dark-mode .nav-toggle span {
+    background-color: var(--dark-text) !important;
+}
+
+body.dark-mode .tech-stack {
+    background-color: var(--dark-card) !important;
+    color: var(--dark-text-secondary) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .education-card {
+    background-color: var(--dark-card) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .skill-tags span {
+    background-color: var(--dark-card) !important;
+    color: var(--dark-text) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .skill-tags span:hover {
+    background-color: var(--dark-accent) !important;
+    color: var(--dark-bg) !important;
+}
+
+body.dark-mode .motion-lines {
+    background-image: repeating-linear-gradient(
+        to right,
+        var(--dark-accent),
+        var(--dark-accent) 1px,
+        transparent 1px,
+        transparent 20px
+    ) !important;
+    opacity: 0.15 !important;
+}
+
+body.dark-mode .particle {
+    opacity: 0.4 !important;
+    background-color: var(--dark-accent) !important;
+}
+
+body.dark-mode .project-card:after {
+    background-color: var(--dark-accent) !important;
+    color: var(--dark-bg) !important;
+}
+
+body.dark-mode .achievement-card i {
+    color: var(--dark-accent) !important;
+}
+
+body.dark-mode .contact-item i {
+    background-color: var(--dark-card) !important;
+    color: var(--dark-accent) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .section-title:after {
+    background-color: var(--dark-accent) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .btn-primary:before,
+body.dark-mode .btn-secondary:before {
+    background-color: rgba(187, 134, 252, 0.3) !important;
+}
+
+body.dark-mode .comic-bubble:after {
+    border-top-color: var(--dark-border) !important;
+}
+
+body.dark-mode .contact-form:before {
+    background-color: var(--dark-surface) !important;
+    border-left: 3px solid var(--dark-border) !important;
+    border-bottom: 3px solid var(--dark-border) !important;
+}
+
+body.dark-mode .footer-content {
+    background-color: var(--dark-surface) !important;
+}
+
+body.dark-mode .nav-exclamation {
+    color: var(--dark-bg) !important;
+    background-color: var(--dark-accent) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .pow,
+body.dark-mode .bang,
+body.dark-mode .boom {
+    background-color: var(--dark-surface) !important;
+    color: var(--dark-accent) !important;
+    border-color: var(--dark-border) !important;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    background-color: var(--dark-card);
+    color: var(--dark-text);
+    border-color: var(--dark-border);
+}
+
+body.dark-mode .form-group input::placeholder,
+body.dark-mode .form-group textarea::placeholder {
+    color: var(--dark-text-secondary);
+    opacity: 0.7;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+    border-color: var(--dark-accent);
+    box-shadow: 3px 3px 0 rgba(187, 134, 252, 0.3);
 }
 
 .wrapper {
@@ -1182,4 +1402,25 @@ footer {
 
 a > .fa-link, a .fa-link {
     text-decoration: none !important;
+}
+
+#theme-toggle {
+    color: var(--primary-color);
+    background: none;
+    border: none;
+    transition: color 0.3s;
+}
+
+body.dark-mode #theme-toggle {
+    color: var(--dark-accent);
+}
+
+body.dark-mode .hero h1 {
+    color: var(--dark-text) !important;
+    text-shadow: 3px 3px 0 var(--dark-surface), 5px 5px 0 var(--dark-accent) !important;
+}
+
+body.dark-mode .hero p {
+    color: var(--dark-text) !important;
+    text-shadow: 1px 1px 0 var(--dark-surface) !important;
 }
