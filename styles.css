@@ -222,8 +222,8 @@ body.dark-mode .contact-item i {
 }
 
 body.dark-mode .section-title:after {
-    background-color: var(--dark-accent) !important;
-    border-color: var(--dark-border) !important;
+    background-color: var(--accent-color);
+    border-color: var(--dark-border);
 }
 
 body.dark-mode .btn-primary:before,
@@ -675,6 +675,11 @@ nav a:hover:after {
     text-shadow: 2px 2px 0 #000;
     position: relative;
     display: inline-block;
+}
+
+body.dark-mode .section-title {
+    color: var(--dark-accent);
+    text-shadow: 2px 2px 0 var(--dark-surface);
 }
 
 .section-title:after {
