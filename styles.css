@@ -1458,11 +1458,23 @@ a > .fa-link, a .fa-link {
     color: var(--primary-color);
     background: none;
     border: none;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
+    transform-origin: center;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+#theme-toggle i {
+    transition: transform 0.5s ease;
+    font-size: 1.2rem;
 }
 
 body.dark-mode #theme-toggle {
-    color: var(--dark-accent);
+    color: var(--light-color);
 }
 
 body.dark-mode .hero h1 {
@@ -1555,4 +1567,40 @@ body.dark-mode nav a[href="achievements.html#contact"]:hover {
     background-color: var(--dark-surface);
     transform: translateY(-3px);
     box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(108, 92, 231, 0.1);
+    padding: 8px 15px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+body.dark-mode .theme-toggle-container {
+    background-color: var(--dark-bg);
+}
+
+.theme-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dark-color);
+    transition: color 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+body.dark-mode .theme-text {
+    color: var(--light-color);
+}
+
+.theme-toggle-container i {
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .theme-toggle-container i {
+    color: var(--light-color);
 }

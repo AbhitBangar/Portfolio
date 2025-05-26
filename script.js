@@ -436,24 +436,59 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
     const icon = themeToggle ? themeToggle.querySelector('i') : null;
+    const themeText = themeToggle ? themeToggle.querySelector('.theme-text') : null;
     const darkModeClass = 'dark-mode';
     
-    // Set dark mode as default
-    document.body.classList.add(darkModeClass);
-    if (icon) { 
-        icon.classList.remove('fa-moon'); 
-        icon.classList.add('fa-sun'); 
+    // Check if this is the first visit (no theme saved)
+    const savedTheme = localStorage.getItem('theme');
+    if (!savedTheme) {
+        // First visit - set dark mode
+        document.body.classList.add(darkModeClass);
+        if (icon) { 
+            icon.classList.remove('fa-moon'); 
+            icon.classList.add('fa-sun'); 
+        }
+        if (themeText) {
+            themeText.textContent = 'Dark Mode';
+        }
+        localStorage.setItem('theme', 'dark');
+    } else {
+        // Not first visit - apply saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add(darkModeClass);
+            if (icon) { 
+                icon.classList.remove('fa-moon'); 
+                icon.classList.add('fa-sun'); 
+            }
+            if (themeText) {
+                themeText.textContent = 'Dark Mode';
+            }
+        } else {
+            document.body.classList.remove(darkModeClass);
+            if (icon) { 
+                icon.classList.add('fa-moon'); 
+                icon.classList.remove('fa-sun'); 
+            }
+            if (themeText) {
+                themeText.textContent = 'Light Mode';
+            }
+        }
     }
-    localStorage.setItem('theme', 'dark');
     
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle(darkModeClass);
             const isDark = document.body.classList.contains(darkModeClass);
+            
             if (icon) {
                 icon.classList.toggle('fa-moon', !isDark);
                 icon.classList.toggle('fa-sun', isDark);
             }
+            
+            if (themeText) {
+                themeText.textContent = isDark ? 'Dark Mode' : 'Light Mode';
+            }
+            
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
     }
