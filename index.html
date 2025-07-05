@@ -162,18 +162,35 @@
                         </div>
                     </div>
                     <div class="contact-form">
-                        <form id="contactForm">
+                        <form id="contactForm" action="https://formspree.io/f/xnnvyjgr" method="POST">
+                            
                             <div class="form-group">
-                                <input type="text" id="name" placeholder="Your Name" required>
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
                             </div>
+                            
                             <div class="form-group">
-                                <input type="email" id="email" placeholder="Your Email" required>
+                                <input type="email" id="email" name="email" placeholder="Your Email" required>
                             </div>
+                            
                             <div class="form-group">
-                                <textarea id="message" placeholder="Your Message" required></textarea>
+                                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
                             </div>
+
+                            <div class="form-group">
+                                <div class="captcha-container">
+                                    <label for="captcha">Please verify you're human:</label>
+                                    <div class="captcha-box">
+                                        <input type="checkbox" id="captcha" name="captcha" required>
+                                        <label for="captcha" class="captcha-label">I'm not a robot</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="_next" value="https://abhitbangar.github.io/Portfolio/?success=true">
+
                             <button type="submit" class="btn-primary">Send Message</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -181,7 +198,7 @@
 
         <footer>
             <div class="footer-content">
-                <p>&copy; Abhit Anant Bangar. All Rights Reserved.</p>
+                <p>&copy; 2025 Abhit Anant Bangar. All Rights Reserved.</p>
                 <div class="social-links">
                     <a href="mailto:abhitbangar333@gmail.com"><i class="fas fa-envelope"></i></a>
                     <a href="tel:+918830088515"><i class="fas fa-phone"></i></a>

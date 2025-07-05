@@ -154,9 +154,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+        // Check if form was successfully submitted (URL contains success parameter)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            // Clear the form
+            contactForm.reset();
             
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Message sent successfully!';
+            successMessage.style.cssText = `
+                background: #4CAF50;
+                color: white;
+                padding: 1rem;
+                border-radius: 8px;
+                margin-bottom: 1rem;
+                text-align: center;
+                animation: fadeIn 0.5s ease-in;
+            `;
+            
+            // Insert success message before the form
+            contactForm.parentNode.insertBefore(successMessage, contactForm);
+            
+            // Remove success message after 5 seconds
+            setTimeout(() => {
+                if (successMessage.parentNode) {
+                    successMessage.remove();
+                }
+            }, 5000);
+            
+            // Clean up URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        
+        contactForm.addEventListener('submit', (e) => {
             // Get form values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
@@ -164,24 +195,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Simple form validation
             if (!name || !email || !message) {
+                e.preventDefault();
                 alert('Please fill in all fields.');
                 return;
             }
             
-            // Here you would typically send the form data to a server
-            // For now, we'll just simulate a successful submission
+            // Show loading state
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
             
-            setTimeout(() => {
-                alert('Thank you for your message! I will get back to you soon.');
-                contactForm.reset();
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }, 1500);
+            // Formspree will handle the submission and redirect
+            // We don't prevent default here to allow Formspree to process the form
         });
     }
 });

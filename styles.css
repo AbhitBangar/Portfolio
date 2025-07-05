@@ -1604,3 +1604,198 @@ body.dark-mode .theme-text {
 body.dark-mode .theme-toggle-container i {
     color: var(--light-color);
 }
+
+/* Captcha Styles */
+.captcha-container {
+    margin-top: 1rem;
+}
+
+.captcha-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.captcha-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: fit-content;
+    padding: 12px 15px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.captcha-box:focus-within {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 3px 3px 0 rgba(108, 92, 231, 0.5);
+}
+
+.captcha-box input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.captcha-label {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Dark mode captcha styles */
+body.dark-mode .captcha-container label {
+    color: var(--dark-text);
+}
+
+body.dark-mode .captcha-box {
+    background-color: var(--dark-surface);
+    border-color: var(--dark-border);
+    color: var(--dark-text);
+}
+
+body.dark-mode .captcha-box:focus-within {
+    border-color: var(--dark-accent);
+    box-shadow: 3px 3px 0 rgba(187, 134, 252, 0.5);
+}
+
+body.dark-mode .captcha-label {
+    color: var(--dark-text);
+}
+
+/* Research page vertical layout */
+#books-papers .achievements-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#books-papers .achievement-card {
+    width: 100%;
+    max-width: none;
+}
+
+/* Research page link styling */
+#books-papers .achievement-card h3 a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: inherit;
+}
+
+#books-papers .achievement-card h3 a:hover {
+    text-decoration: underline;
+}
+
+/* Research page button styling */
+#books-papers .achievement-card h3 .btn-secondary {
+    color: var(--light-color) !important;
+    background-color: var(--primary-color);
+    display: inline-block;
+    padding: 4px 12px;
+    margin-left: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    vertical-align: middle;
+}
+
+#books-papers .achievement-card h3 .btn-secondary:hover {
+    color: var(--dark-color) !important;
+    background-color: var(--light-color);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Dark mode for research button */
+body.dark-mode #books-papers .achievement-card h3 .btn-secondary {
+    color: var(--dark-bg) !important;
+    background-color: var(--dark-accent);
+}
+
+body.dark-mode #books-papers .achievement-card h3 .btn-secondary:hover {
+    color: var(--dark-text) !important;
+    background-color: var(--dark-surface);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Research papers list button styling */
+#books-papers .achievement-card ul li .btn-secondary {
+    color: var(--light-color) !important;
+    background-color: var(--primary-color);
+    display: inline-block;
+    padding: 4px 12px;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    vertical-align: middle;
+}
+
+#books-papers .achievement-card ul li .btn-secondary:hover {
+    color: var(--dark-color) !important;
+    background-color: var(--light-color);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Dark mode for research papers buttons */
+body.dark-mode #books-papers .achievement-card ul li .btn-secondary {
+    color: var(--dark-bg) !important;
+    background-color: var(--dark-accent);
+}
+
+body.dark-mode #books-papers .achievement-card ul li .btn-secondary:hover {
+    color: var(--dark-text) !important;
+    background-color: var(--dark-surface);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Projects page button styling */
+.projects-grid .project-card .project-content .btn-secondary {
+    color: var(--light-color) !important;
+    background-color: var(--primary-color);
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    vertical-align: middle;
+}
+
+.projects-grid .project-card .project-content .btn-secondary:hover {
+    color: var(--dark-color) !important;
+    background-color: var(--light-color);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Dark mode for projects buttons */
+body.dark-mode .projects-grid .project-card .project-content .btn-secondary {
+    color: var(--dark-bg) !important;
+    background-color: var(--dark-accent);
+}
+
+body.dark-mode .projects-grid .project-card .project-content .btn-secondary:hover {
+    color: var(--dark-text) !important;
+    background-color: var(--dark-surface);
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+}
