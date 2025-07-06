@@ -40,40 +40,51 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
         
-        // Smooth scroll for internal section links (not for external or buttons)
+        // Hide header immediately and lock it hidden if scrolling to a section
+        const header = document.querySelector('header');
         const href = link.getAttribute('href');
-        if (href && href.startsWith('#') && !link.classList.contains('btn-primary')) {
+        if (header && href && href.startsWith('#')) {
+            header.classList.add('header-hidden');
+            forceHideHeader = true;
+        }
+        // Smooth scroll for internal section links (on index page only)
+        if (href && href.startsWith('#')) {
             const target = document.querySelector(href);
             if (target) {
                 e.preventDefault();
-                // Custom bounce scroll effect
-                const startY = window.scrollY;
-                const endY = target.getBoundingClientRect().top + window.scrollY;
-                const duration = 900;
-                let startTime = null;
-                function easeOutBounce(t) {
-                    const n1 = 7.5625, d1 = 2.75;
-                    if (t < 1 / d1) {
-                        return n1 * t * t;
-                    } else if (t < 2 / d1) {
-                        return n1 * (t -= 1.5 / d1) * t + 0.75;
-                    } else if (t < 2.5 / d1) {
-                        return n1 * (t -= 2.25 / d1) * t + 0.9375;
-                    } else {
-                        return n1 * (t -= 2.625 / d1) * t + 0.984375;
+                target.scrollIntoView({ behavior: 'smooth' });
+                // Custom animation for About, Skills, Contact Me
+                const id = href.replace('#', '');
+                if (["about", "skills", "contact"].includes(id)) {
+                    target.classList.remove('section-flash');
+                    void target.offsetWidth;
+                    target.classList.add('section-flash');
+                    target.addEventListener('animationend', function handler() {
+                        target.classList.remove('section-flash');
+                        target.removeEventListener('animationend', handler);
+                    });
+                }
+            }
+        }
+        // For links like index.html#about, index.html#skills, index.html#contact on index page
+        if (href && href.startsWith('index.html#')) {
+            const hash = href.substring('index.html'.length);
+            if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '') {
+                const target = document.querySelector(hash);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    const id = hash.replace('#', '');
+                    if (["about", "skills", "contact"].includes(id)) {
+                        target.classList.remove('section-flash');
+                        void target.offsetWidth;
+                        target.classList.add('section-flash');
+                        target.addEventListener('animationend', function handler() {
+                            target.classList.remove('section-flash');
+                            target.removeEventListener('animationend', handler);
+                        });
                     }
                 }
-                function animateScroll(currentTime) {
-                    if (!startTime) startTime = currentTime;
-                    const timeElapsed = currentTime - startTime;
-                    let t = Math.min(timeElapsed / duration, 1);
-                    t = easeOutBounce(t);
-                    window.scrollTo(0, startY + (endY - startY) * t);
-                    if (timeElapsed < duration) {
-                        requestAnimationFrame(animateScroll);
-                    }
-                }
-                requestAnimationFrame(animateScroll);
             }
         }
     });
@@ -393,72 +404,52 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-// Add special effect to Contact Me button
-document.addEventListener('DOMContentLoaded', () => {
-    const contactBtn = document.querySelector('.nav-menu a.btn-primary');
-    
-    if (contactBtn) {
-        contactBtn.addEventListener('click', (e) => {
-            // Comic-style bounce scroll to contact section
-            const href = contactBtn.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    const startY = window.scrollY;
-                    const endY = target.getBoundingClientRect().top + window.scrollY;
-                    const duration = 900;
-                    let startTime = null;
-                    function easeOutBounce(t) {
-                        const n1 = 7.5625, d1 = 2.75;
-                        if (t < 1 / d1) {
-                            return n1 * t * t;
-                        } else if (t < 2 / d1) {
-                            return n1 * (t -= 1.5 / d1) * t + 0.75;
-                        } else if (t < 2.5 / d1) {
-                            return n1 * (t -= 2.25 / d1) * t + 0.9375;
-                        } else {
-                            return n1 * (t -= 2.625 / d1) * t + 0.984375;
-                        }
-                    }
-                    function animateScroll(currentTime) {
-                        if (!startTime) startTime = currentTime;
-                        const timeElapsed = currentTime - startTime;
-                        let t = Math.min(timeElapsed / duration, 1);
-                        t = easeOutBounce(t);
-                        window.scrollTo(0, startY + (endY - startY) * t);
-                        if (timeElapsed < duration) {
-                            requestAnimationFrame(animateScroll);
-                        }
-                    }
-                    requestAnimationFrame(animateScroll);
-                }
+// Highlight active nav link based on current page or hash
+function setActiveNavLink() {
+    const links = document.querySelectorAll('.nav-menu a');
+    const currentPath = window.location.pathname.split('/').pop();
+    const currentHash = window.location.hash;
+    let activeSet = false;
+    links.forEach(link => {
+        link.classList.remove('active');
+    });
+    links.forEach(link => {
+        if (activeSet) return;
+        const linkHref = link.getAttribute('href');
+        if (!linkHref) return;
+        // Skip About and Skills links
+        if (linkHref === '#about' || linkHref === '#skills' || linkHref === 'index.html#about' || linkHref === 'index.html#skills') {
+            return;
+        }
+        // For full page links (projects.html, research.html, achievements.html)
+        if (!linkHref.startsWith('#') && linkHref === currentPath) {
+            link.classList.add('active');
+            activeSet = true;
+            return;
+        }
+        // For section links on index.html (except About/Skills)
+        if ((currentPath === '' || currentPath === 'index.html') && linkHref.startsWith('#') && linkHref === currentHash) {
+            link.classList.add('active');
+            activeSet = true;
+            return;
+        }
+        // For links like index.html#contact (except About/Skills)
+        if (linkHref.startsWith('index.html#')) {
+            const [file, hash] = linkHref.split('#');
+            if ((currentPath === '' || currentPath === 'index.html') && ('#' + window.location.hash.replace('#','')) === ('#' + hash)) {
+                link.classList.add('active');
+                activeSet = true;
+                return;
             }
-            // Create multiple stars/sparkles around the button
-            for (let i = 0; i < 10; i++) {
-                const star = document.createElement('div');
-                star.classList.add('btn-star');
-                // Random position around the button
-                const angle = Math.random() * Math.PI * 2; // Random angle
-                const distance = 40 + Math.random() * 30; // Random distance (40-70px)
-                const rect = contactBtn.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const x = centerX + Math.cos(angle) * distance;
-                const y = centerY + Math.sin(angle) * distance;
-                star.style.left = `${x}px`;
-                star.style.top = `${y}px`;
-                // Random delay for staggered animation
-                star.style.animationDelay = `${Math.random() * 0.2}s`;
-                document.body.appendChild(star);
-                // Remove after animation completes
-                setTimeout(() => {
-                    star.remove();
-                }, 1000);
             }
         });
     }
+// On DOMContentLoaded, ensure no nav link is active by default, then set the correct one
+window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
+    setActiveNavLink();
 });
+window.addEventListener('hashchange', setActiveNavLink);
 
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('theme-toggle');
@@ -529,5 +520,41 @@ document.addEventListener('DOMContentLoaded', () => {
             
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
+    }
+});
+
+// Show/hide header on scroll up/down
+let lastScrollY = window.scrollY;
+let ticking = false;
+let forceHideHeader = false;
+
+const header = document.querySelector('header');
+function handleScroll() {
+    if (!header) return;
+    const currentScrollY = window.scrollY;
+    if (forceHideHeader) {
+        // Only allow header to reappear if user scrolls up
+        if (currentScrollY < lastScrollY) {
+            forceHideHeader = false;
+            header.classList.remove('header-hidden');
+        } else {
+            header.classList.add('header-hidden');
+        }
+    } else {
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+            // Scrolling down
+            header.classList.add('header-hidden');
+        } else {
+            // Scrolling up
+            header.classList.remove('header-hidden');
+        }
+    }
+    lastScrollY = currentScrollY;
+    ticking = false;
+}
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
     }
 });
