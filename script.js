@@ -472,8 +472,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // First visit - set dark mode
         document.body.classList.add(darkModeClass);
         if (icon) { 
-            icon.classList.remove('fa-moon'); 
-            icon.classList.add('fa-sun'); 
+            icon.classList.remove('fa-sun'); 
+            icon.classList.add('fa-moon'); 
         }
         if (themeText) {
             themeText.textContent = 'Dark Mode';
@@ -484,8 +484,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedTheme === 'dark') {
             document.body.classList.add(darkModeClass);
             if (icon) { 
-                icon.classList.remove('fa-moon'); 
-                icon.classList.add('fa-sun'); 
+                icon.classList.remove('fa-sun'); 
+                icon.classList.add('fa-moon'); 
             }
             if (themeText) {
                 themeText.textContent = 'Dark Mode';
@@ -493,8 +493,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.body.classList.remove(darkModeClass);
             if (icon) { 
-                icon.classList.add('fa-moon'); 
-                icon.classList.remove('fa-sun'); 
+                icon.classList.add('fa-sun'); 
+                icon.classList.remove('fa-moon'); 
             }
             if (themeText) {
                 themeText.textContent = 'Light Mode';
@@ -508,8 +508,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const isDark = document.body.classList.contains(darkModeClass);
             
             if (icon) {
-                icon.classList.toggle('fa-moon', !isDark);
-                icon.classList.toggle('fa-sun', isDark);
+                icon.classList.toggle('fa-moon', isDark);
+                icon.classList.toggle('fa-sun', !isDark);
+                // Bounce animation
+                icon.classList.add('theme-bounce');
+                icon.addEventListener('animationend', function handler() {
+                    icon.classList.remove('theme-bounce');
+                    icon.removeEventListener('animationend', handler);
+                });
+                // Pulse animation
+                const pulse = document.createElement('div');
+                pulse.className = 'theme-pulse';
+                themeToggle.appendChild(pulse);
+                pulse.addEventListener('animationend', () => pulse.remove());
             }
             
             if (themeText) {
