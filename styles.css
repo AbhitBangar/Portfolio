@@ -1148,7 +1148,7 @@ body.dark-mode .section-title {
 footer {
     background-color: white;
     border-top: var(--comic-border);
-    padding: 12px 0;
+    padding: 4px 0;
     margin-top: 50px;
     width: 100vw;
     position: relative;
@@ -1163,10 +1163,38 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    gap: 12px;
+    padding: 0 40px; /* Increased from 16px to 40px for more inner spacing */
     width: 100%;
+}
+
+.footer-content p {
+    margin: 0;
+    line-height: 1.1;
+    font-size: 0.95rem;
+}
+
+.footer-content .social-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-content .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-content svg {
+    display: block;
+    vertical-align: middle;
+    height: 22px;
+    width: 22px;
+}
+
+.footer-content .social-links svg {
+    margin-top: -2px;
 }
 
 /* Animation Effects */
@@ -1317,6 +1345,12 @@ footer {
     .footer-content {
         flex-direction: column;
         gap: 20px;
+        text-align: center;
+    }
+    .footer-content .social-links {
+        justify-content: center;
+    }
+    .footer-content p {
         text-align: center;
     }
 }
