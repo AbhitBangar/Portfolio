@@ -1914,3 +1914,26 @@ body.dark-mode #theme-toggle .theme-pulse {
 .section-flash {
     animation: sectionFlash 0.7s ease;
 }
+
+.btn-secondary:after,
+.btn-primary:after,
+.social-links a:after {
+    display: none !important;
+}
+
+.social-links a:after,
+nav .social-links a:after,
+footer .social-links a:after {
+    display: none !important;
+    content: none !important;
+    width: 0 !important;
+    background: none !important;
+    height: 0 !important;
+}
+
+.social-links a,
+footer .social-links a {
+    vertical-align: middle !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
