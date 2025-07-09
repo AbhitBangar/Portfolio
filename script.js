@@ -438,16 +438,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if this is the first visit (no theme saved)
     const savedTheme = localStorage.getItem('theme');
     if (!savedTheme) {
-        // First visit - set dark mode
-        document.body.classList.add(darkModeClass);
+        // First visit - set light mode (do NOT add dark mode class)
+        document.body.classList.remove(darkModeClass);
         if (icon) { 
-            icon.classList.remove('fa-sun'); 
-            icon.classList.add('fa-moon'); 
+            icon.classList.add('fa-sun'); 
+            icon.classList.remove('fa-moon'); 
         }
         if (themeText) {
-            themeText.textContent = 'Dark Mode';
+            themeText.textContent = 'Light Mode';
         }
-        localStorage.setItem('theme', 'dark');
+        localStorage.setItem('theme', 'light');
     } else {
         // Not first visit - apply saved theme
         if (savedTheme === 'dark') {
@@ -501,42 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Show/hide header on scroll up/down
-let lastScrollY = window.scrollY;
-let ticking = false;
-let forceHideHeader = false;
-
-const header = document.querySelector('header');
-function handleScroll() {
-    if (!header) return;
-    const currentScrollY = window.scrollY;
-    if (forceHideHeader) {
-        // Only allow header to reappear if user scrolls up
-        if (currentScrollY < lastScrollY) {
-            forceHideHeader = false;
-            header.classList.remove('header-hidden');
-        } else {
-            header.classList.add('header-hidden');
-        }
-    } else {
-        if (currentScrollY > lastScrollY && currentScrollY > 80) {
-            // Scrolling down
-            header.classList.add('header-hidden');
-        } else {
-            // Scrolling up
-            header.classList.remove('header-hidden');
-        }
-    }
-    lastScrollY = currentScrollY;
-    ticking = false;
-}
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        window.requestAnimationFrame(handleScroll);
-        ticking = true;
-    }
-});
-
 // Typewriter effect for About Me paragraph
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -555,3 +519,21 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(typeAbout, 1000);
     }
 });
+
+// Header hide/show on scroll (from scratch)
+(function() {
+    let lastScrollY = window.scrollY;
+    const header = document.querySelector('header');
+    if (!header) return;
+    window.addEventListener('scroll', function() {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+            // Scrolling down
+            header.classList.add('header-hidden');
+        } else {
+            // Scrolling up
+            header.classList.remove('header-hidden');
+        }
+        lastScrollY = currentScrollY;
+    });
+})();
