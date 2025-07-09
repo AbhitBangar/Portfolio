@@ -338,6 +338,32 @@ body.dark-mode header {
     padding-top: 100px;
 }
 
+/* Add styles for index.html only by targeting .home class on body */
+body.home .wrapper {
+    padding-top: 0 !important;
+}
+body.home header {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+body.home .hero {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+@media (max-width: 768px) {
+    body.home .wrapper {
+        padding-top: 0 !important;
+    }
+    body.home header {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    body.home .hero {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+}
+
 /* Animation Classes */
 .hidden {
     opacity: 0;
@@ -594,15 +620,20 @@ nav {
 
 /* Hero Section */
 .hero {
-    min-height: 60vh;
-    height: auto;
+    min-height: 100vh;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
     background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="white"/><path d="M0 0L100 100M100 0L0 100" stroke="rgba(108,92,231,0.1)" stroke-width="4"/></svg>');
     background-size: 20px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .hero:before {
@@ -1359,6 +1390,28 @@ footer {
     .footer-content p {
         text-align: center;
     }
+    .hero {
+        min-height: 80vh;
+        flex-direction: column;
+        padding: 30px 0;
+        width: 100vw;
+        left: 50%;
+        margin-left: -50vw;
+    }
+    .profile-photo {
+        width: 140px;
+        height: 140px;
+    }
+}
+@media (max-width: 480px) {
+    .hero {
+        min-height: 65vh;
+        padding: 20px 0;
+    }
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
 }
 
 /* Profile Photo */
@@ -2044,4 +2097,40 @@ body.nav-locked {
     touch-action: none !important;
     position: fixed;
     width: 100vw;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        repeating-linear-gradient(45deg, rgba(108,92,231,0.08) 0, rgba(108,92,231,0.08) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(-45deg, rgba(108,92,231,0.08) 0, rgba(108,92,231,0.08) 1px, transparent 1px, transparent 40px);
+    animation: crosslines-move 12s linear infinite;
+}
+@keyframes crosslines-move {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 40px 40px, -40px -40px; }
+}
+body.home {
+    position: relative;
+    z-index: 1;
+}
+body.home .hero-content .profile-photo {
+    margin-top: 80px;
+}
+@media (max-width: 768px) {
+    body.home .hero-content .profile-photo {
+        margin-top: 120px;
+    }
+}
+@media (max-width: 480px) {
+    body.home .hero-content .profile-photo {
+        margin-top: 100px;
+    }
 }
