@@ -27,6 +27,10 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f0f0f0;
@@ -117,6 +121,7 @@ body.dark-mode .profile-photo::before {
     background: linear-gradient(45deg, var(--dark-surface), var(--dark-bg), var(--dark-accent)) !important;
     opacity: 0.5;
 }
+
 
 body.dark-mode .social-links a {
     background-color: var(--dark-surface) !important;
@@ -589,7 +594,8 @@ nav {
 
 /* Hero Section */
 .hero {
-    height: 80vh;
+    min-height: 60vh;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1307,6 +1313,8 @@ footer {
         transition: right 0.5s ease;
         z-index: 100;
         border-left: var(--comic-border);
+        overflow: hidden; /* Prevent scrolling */
+        overscroll-behavior: none; /* Prevent scroll chaining */
     }
     
     .nav-menu.active {
@@ -1319,15 +1327,13 @@ footer {
     }
     
     .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
+        transform: rotate(45deg) translate(6px, 6px);
     }
-    
     .nav-toggle.active span:nth-child(2) {
         opacity: 0;
     }
-    
     .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(8px, -8px);
+        transform: rotate(-45deg) translate(6px, -6px);
     }
     
     .hero h1 {
@@ -1602,26 +1608,10 @@ body.dark-mode .hero p {
     transition: transform 0.3s ease;
 }
 
-.nav-close:hover {
-    transform: rotate(90deg);
-}
-
 body.dark-mode .nav-close {
     color: var(--dark-text);
 }
 
-@media (max-width: 768px) {
-    .nav-menu.active .nav-close {
-        display: block;
-    }
-    
-    .nav-close {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-    }
-}
 
 nav a[href="#contact"],
 nav a[href="index.html#contact"],
@@ -1970,4 +1960,88 @@ footer .social-links a {
     vertical-align: middle !important;
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
+}
+
+.hero h1, .hero p {
+    animation: slideUp 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s both;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-80px) scale(0.9);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(10px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(80px) scale(0.9);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.profile-photo {
+    animation: slideDown 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.2s both;
+}
+
+@keyframes heroContainerIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100px) scale(0.95);
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.hero {
+    animation: heroContainerIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s both;
+}
+
+.profile-photo {
+    animation-delay: 0.4s;
+}
+
+.hero h1, .hero p {
+    animation-delay: 0.7s;
+}
+
+.nav-overlay {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.2);
+    touch-action: none;
+    pointer-events: all;
+}
+.nav-overlay.active {
+    display: block;
+}
+body.nav-locked {
+    overflow: hidden !important;
+    touch-action: none !important;
+    position: fixed;
+    width: 100vw;
 }

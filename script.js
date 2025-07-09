@@ -1,16 +1,26 @@
 // Mobile Menu Toggle
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
-const navClose = document.querySelector('.nav-close');
+const navOverlay = document.querySelector('.nav-overlay');
+// navClose and its event listener have been removed as the close button is no longer present
 
 navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
+    const isActive = navToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
+    if (isActive) {
+        document.body.classList.add('nav-locked');
+        navOverlay.classList.add('active');
+    } else {
+        document.body.classList.remove('nav-locked');
+        navOverlay.classList.remove('active');
+    }
 });
 
-navClose.addEventListener('click', () => {
+navOverlay.addEventListener('click', () => {
     navToggle.classList.remove('active');
     navMenu.classList.remove('active');
+    document.body.classList.remove('nav-locked');
+    navOverlay.classList.remove('active');
 });
 
 // Add click animation to nav links
@@ -39,6 +49,8 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
         // Close mobile menu
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
+        document.body.classList.remove('nav-locked');
+        navOverlay.classList.remove('active');
         
         // Hide header immediately and lock it hidden if scrolling to a section
         const header = document.querySelector('header');
@@ -114,41 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Typing Animation Effect
-document.addEventListener('DOMContentLoaded', () => {
-    const heroTitle = document.querySelector('.hero h1');
-    const heroText = document.querySelector('.hero p');
-    
-    if (heroTitle && heroText) {
-        const titleText = heroTitle.textContent;
-        const descText = heroText.textContent;
-        
-        heroTitle.textContent = '';
-        heroText.textContent = '';
-        
-        let titleIndex = 0;
-        let descIndex = 0;
-        
-        function typeTitle() {
-            if (titleIndex < titleText.length) {
-                heroTitle.textContent += titleText.charAt(titleIndex);
-                titleIndex++;
-                setTimeout(typeTitle, 100);
-            } else {
-                setTimeout(typeDesc, 500);
-            }
-        }
-        
-        function typeDesc() {
-            if (descIndex < descText.length) {
-                heroText.textContent += descText.charAt(descIndex);
-                descIndex++;
-                setTimeout(typeDesc, 50);
-            }
-        }
-        
-        setTimeout(typeTitle, 500);
-    }
-});
+// Removed typewriter effect for hero section. The text will now appear immediately.
 
 // Add animations to skill tags
 document.addEventListener('DOMContentLoaded', () => {
@@ -556,5 +534,24 @@ window.addEventListener('scroll', () => {
     if (!ticking) {
         window.requestAnimationFrame(handleScroll);
         ticking = true;
+    }
+});
+
+// Typewriter effect for About Me paragraph
+
+document.addEventListener('DOMContentLoaded', () => {
+    const aboutPara = document.getElementById('about-typewriter');
+    if (aboutPara) {
+        const aboutText = aboutPara.textContent;
+        aboutPara.textContent = '';
+        let aboutIndex = 0;
+        function typeAbout() {
+            if (aboutIndex < aboutText.length) {
+                aboutPara.textContent += aboutText.charAt(aboutIndex);
+                aboutIndex++;
+                setTimeout(typeAbout, 30);
+            }
+        }
+        setTimeout(typeAbout, 1000);
     }
 });
