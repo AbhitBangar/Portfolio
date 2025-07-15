@@ -542,19 +542,12 @@ function headerScrollMobile() {
     let lastScrollY = 0;
     const header = document.querySelector('header');
     const navMenu = document.querySelector('.nav-menu');
-    const wrapper = document.querySelector('.wrapper');
+    // Always use window for scrolling on mobile
     let scrollElement = window;
-    if (wrapper && wrapper.scrollHeight > wrapper.clientHeight) {
-        scrollElement = wrapper;
-        console.log('Mobile scroll handler: attaching to .wrapper');
-    } else {
-        console.log('Mobile scroll handler: attaching to window');
-    }
     function getScrollY() {
-        return scrollElement === window ? window.scrollY : wrapper.scrollTop;
+        return window.scrollY;
     }
     function onScroll() {
-        console.log('Mobile scroll handler active', getScrollY());
         if (navMenu && navMenu.classList.contains('active')) return;
         const currentScrollY = getScrollY();
         if (currentScrollY > lastScrollY && currentScrollY > 40) {
