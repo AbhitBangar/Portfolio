@@ -356,12 +356,20 @@ body.dark-mode header {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    padding-top: 100px;
+    padding-top: 60px;
     flex: 1 0 auto;
 }
 
 /* Add styles for index.html only by targeting .home class on body */
 body.home .wrapper {
+    padding-top: 0 !important;
+}
+body.home .hero {
+    padding-top: 110px !important; /* Adjust to match header height so content is visible */
+    margin-top: 0 !important;
+}
+/* Remove these special rules for index.html to ensure consistent header height */
+/* body.home .wrapper {
     padding-top: 0 !important;
 }
 body.home header {
@@ -371,7 +379,7 @@ body.home header {
 body.home .hero {
     margin-top: 0 !important;
     padding-top: 0 !important;
-}
+} */
 @media (max-width: 768px) {
     html, body {
         width: 100% !important;
@@ -386,7 +394,8 @@ body.home .hero {
         width: 100% !important;
         box-sizing: border-box;
     }
-    body.home .wrapper {
+    /* Remove these special rules for index.html to ensure consistent header height */
+    /* body.home .wrapper {
         padding-top: 0 !important;
     }
     body.home header {
@@ -396,7 +405,7 @@ body.home .hero {
     body.home .hero {
         margin-top: 0 !important;
         padding-top: 0 !important;
-    }
+    } */
     header.header-hidden {
       transform: translateY(-100%) !important;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -2167,18 +2176,18 @@ body.home {
     z-index: 1;
 }
 body.home .hero-content .profile-photo {
-    margin-top: 80px;
+    margin-top: -20px;
 }
 @media (max-width: 768px) {
     body.home .hero-content .profile-photo {
-        margin-top: 120px;
+        margin-top: -10px;
     }
 }
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
     body.home .hero-content .profile-photo {
-        margin-top: 100px;
+        margin-top: -20px;
     }
-}
+} */
 
 footer {
     flex-shrink: 0;

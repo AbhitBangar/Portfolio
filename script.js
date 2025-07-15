@@ -520,20 +520,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Header hide/show on scroll (from scratch)
-(function() {
+// Header hide/show on scroll: separate for desktop and mobile
+function headerScrollDesktop() {
     let lastScrollY = window.scrollY;
     const header = document.querySelector('header');
-    if (!header) return;
-    window.addEventListener('scroll', function() {
+    function onScroll() {
         const currentScrollY = window.scrollY;
         if (currentScrollY > lastScrollY && currentScrollY > 80) {
-            // Scrolling down
             header.classList.add('header-hidden');
         } else {
-            // Scrolling up
             header.classList.remove('header-hidden');
         }
         lastScrollY = currentScrollY;
-    });
-})();
+    }
+    window.addEventListener('scroll', onScroll);
+    // Return a cleanup function
+    return () => window.removeEventListener('scroll', onScroll);
+}
+
+function headerScrollMobile() {
+    let lastScrollY = 0;
+    const header = document.querySelector('header');
+    const navMenu = document.querySelector('.nav-menu');
+    const wrapper = document.querySelector('.wrapper');
+    let scrollElement = window;
+    if (wrapper && wrapper.scrollHeight > wrapper.clientHeight) {
+        scrollElement = wrapper;
+        console.log('Mobile scroll handler: attaching to .wrapper');
+    } else {
+        console.log('Mobile scroll handler: attaching to window');
+    }
+    function getScrollY() {
+        return scrollElement === window ? window.scrollY : wrapper.scrollTop;
+    }
+    function onScroll() {
+        console.log('Mobile scroll handler active', getScrollY());
+        if (navMenu && navMenu.classList.contains('active')) return;
+        const currentScrollY = getScrollY();
+        if (currentScrollY > lastScrollY && currentScrollY > 40) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+        lastScrollY = currentScrollY;
+    }
+    scrollElement.addEventListener('scroll', onScroll);
+    // Return a cleanup function
+    return () => scrollElement.removeEventListener('scroll', onScroll);
+}
+
+let cleanupHeaderScroll = null;
+function setupHeaderScroll() {
+    console.log('setupHeaderScroll called, window.innerWidth:', window.innerWidth);
+    if (cleanupHeaderScroll) cleanupHeaderScroll();
+    if (window.innerWidth > 768) {
+        console.log('Activating desktop scroll handler');
+        cleanupHeaderScroll = headerScrollDesktop();
+    } else {
+        console.log('Activating mobile scroll handler');
+        cleanupHeaderScroll = headerScrollMobile();
+    }
+}
+window.addEventListener('resize', setupHeaderScroll);
+window.addEventListener('DOMContentLoaded', setupHeaderScroll);
+
+window.addEventListener('scroll', function() {
+    console.log('Global scroll event fired', window.scrollY);
+});
