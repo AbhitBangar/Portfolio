@@ -554,27 +554,11 @@ function headerScrollDesktop() {
 }
 
 function headerScrollMobile() {
-    let lastScrollY = 0;
     const header = document.querySelector('header');
-    const navMenu = document.querySelector('.nav-menu');
-    // Always use window for scrolling on mobile
-    let scrollElement = window;
-    function getScrollY() {
-        return window.scrollY;
-    }
-    function onScroll() {
-        if (navMenu && navMenu.classList.contains('active')) return;
-        const currentScrollY = getScrollY();
-        if (currentScrollY > lastScrollY && currentScrollY > 40) {
-            header.classList.add('header-hidden');
-        } else {
-            header.classList.remove('header-hidden');
-        }
-        lastScrollY = currentScrollY;
-    }
-    scrollElement.addEventListener('scroll', onScroll);
-    // Return a cleanup function
-    return () => scrollElement.removeEventListener('scroll', onScroll);
+    // Always show header in mobile view
+    header.classList.remove('header-hidden');
+    // No scroll event needed
+    return () => {};
 }
 
 let cleanupHeaderScroll = null;
