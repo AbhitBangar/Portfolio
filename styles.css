@@ -1811,7 +1811,7 @@ body.dark-mode .theme-text {
 }
 
 body.dark-mode .theme-toggle-container i {
-    color: var(--light-color);
+    color: var(--dark-accent);
 }
 
 /* Captcha Styles */
