@@ -7,12 +7,23 @@ const navOverlay = document.querySelector('.nav-overlay');
 navToggle.addEventListener('click', () => {
     const isActive = navToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
+    const header = document.querySelector('header');
     if (isActive) {
         document.body.classList.add('nav-locked');
         navOverlay.classList.add('active');
+        // Always show header and make it solid on mobile when menu is open
+        if (window.innerWidth <= 768 && header) {
+            header.classList.remove('header-hidden');
+            header.classList.add('nav-solid');
+        }
     } else {
         document.body.classList.remove('nav-locked');
         navOverlay.classList.remove('active');
+        // Remove solid header on mobile when menu is closed
+        if (window.innerWidth <= 768 && header) {
+            header.classList.remove('nav-solid');
+            header.classList.remove('header-hidden');
+        }
     }
 });
 
@@ -21,6 +32,12 @@ navOverlay.addEventListener('click', () => {
     navMenu.classList.remove('active');
     document.body.classList.remove('nav-locked');
     navOverlay.classList.remove('active');
+    const header = document.querySelector('header');
+    // Remove solid header and always show header on mobile when menu is closed
+    if (window.innerWidth <= 768 && header) {
+        header.classList.remove('nav-solid');
+        header.classList.remove('header-hidden');
+    }
 });
 
 // Add click animation to nav links
@@ -51,13 +68,11 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
         navMenu.classList.remove('active');
         document.body.classList.remove('nav-locked');
         navOverlay.classList.remove('active');
-        
-        // Hide header immediately and lock it hidden if scrolling to a section
         const header = document.querySelector('header');
-        const href = link.getAttribute('href');
-        if (header && href && href.startsWith('#')) {
-            header.classList.add('header-hidden');
-            forceHideHeader = true;
+        // Remove solid header and always show header on mobile when menu is closed
+        if (window.innerWidth <= 768 && header) {
+            header.classList.remove('nav-solid');
+            header.classList.remove('header-hidden');
         }
         // Smooth scroll for internal section links (on index page only)
         if (href && href.startsWith('#')) {
@@ -579,4 +594,25 @@ window.addEventListener('DOMContentLoaded', setupHeaderScroll);
 
 window.addEventListener('scroll', function() {
     console.log('Global scroll event fired', window.scrollY);
+});
+
+// Allow closing nav menu by clicking outside (on page content)
+document.addEventListener('click', function(e) {
+    if (window.innerWidth > 768) return;
+    const navMenu = document.querySelector('.nav-menu');
+    const navToggle = document.querySelector('.nav-toggle');
+    const header = document.querySelector('header');
+    // If menu is not open, do nothing
+    if (!navMenu.classList.contains('active')) return;
+    // If click is inside nav menu or on nav toggle, do nothing
+    if (navMenu.contains(e.target) || navToggle.contains(e.target)) return;
+    // Otherwise, close the menu
+    navMenu.classList.remove('active');
+    navToggle.classList.remove('active');
+    document.body.classList.remove('nav-locked');
+    document.querySelector('.nav-overlay').classList.remove('active');
+    if (header) {
+        header.classList.remove('nav-solid');
+        header.classList.remove('header-hidden');
+    }
 });
